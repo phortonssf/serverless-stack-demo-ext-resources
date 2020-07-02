@@ -1,0 +1,10 @@
+custom:
+  # Our stage is based on what is passed in when running serverless
+  # commands. Or fallsback to what we have set in the provider section.
+  stage: ${opt:stage, self:provider.stage}
+  region: ${opt:region, us-west-2}
+  resourcesStages:
+    prod: prod
+    dev: dev
+    region: ${opt:stage, us-west-2}
+  resourcesStage: ${self:custom.resourcesStages.${self:custom.stage}, self:custom.resourcesStages.dev}

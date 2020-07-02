@@ -6,11 +6,12 @@ custom:
   stage: ${opt:stage, self:provider.stage}
   # Set the table name here so we can use it while testing locally
   tableName: ${self:custom.stage}-ext-notes
+  region: ${file(../../serverless.common.yml):custom.region}
 
 provider:
   name: aws
-  stage: dev
-  region: us-east-1
+  stage: ${self:custom.stage}
+  region: ${self:custom.region}
 
 resources:
   Resources:
@@ -35,7 +36,7 @@ resources:
   Outputs:
     NotesTableArn:
       Value:
-         Fn::GetAtt:
+        Fn::GetAtt:
           - NotesTable
           - Arn
       Export:
